@@ -1,9 +1,4 @@
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
-
-import Dashboard from './Dashboard';
-import Orders from './Orders';
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -25,6 +20,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import { MyApp } from './theme';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
   function ToggleColorMode() {
@@ -117,7 +113,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const theme = createTheme();
 
-function App() {
+function DashboardContent() {
   const [mode, setMode] = React.useState('light');
   const colorMode = React.useMemo(
     () => ({
@@ -142,6 +138,7 @@ function App() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
   return (
     <ColorModeContext.Provider value={colorMode}>
     <ThemeProvider theme={theme}>
@@ -204,18 +201,13 @@ function App() {
             {secondaryListItems}
           </List>
         </Drawer>
-        <BrowserRouter>
-
-            <Routes>
-  <Route path="/" element={<Dashboard />}></Route>
-              <Route path="/orders" element={<Orders />}></Route>
-              </Routes>
-              </BrowserRouter>
-
+       
       </Box>
     </ThemeProvider>
     </ColorModeContext.Provider>
   );
 }
 
-export default App;
+export default function Layout() {
+  return <DashboardContent />;
+}
